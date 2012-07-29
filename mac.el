@@ -1,10 +1,11 @@
 ;; change command to meta, and ignore option to use weird Norwegian keyboard
-(setq mac-option-modifier 'none)
+;(setq mac-option-modifier 'none)
 (setq mac-command-modifier 'meta)
 (setq ns-function-modifier 'hyper)
 
 ;; mac friendly font
-(set-face-attribute 'default nil :font "Monaco-16")
+;(set-face-attribute 'default nil :font "Monaco" :height 140)
+(set-face-attribute 'default nil :height 140)
 
 ;; make sure path is correct when launched as application
 (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))

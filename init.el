@@ -53,6 +53,7 @@
 (require 'setup-shell)
 (require 'setup-wrap-region)
 (require 'setup-ffip)
+(require 'setup-nxhtml)
 
 ;; Map files to modes
 (require 'mode-mappings)
