@@ -41,22 +41,24 @@
 ;; Are we on a mac?
 (setq is-mac (equal system-type 'darwin))
 
+
 ;; Setup extensions
-(require 'setup-ido)
+;(require 'setup-ido)
 (require 'setup-yasnippet)
-(require 'setup-dired)
-(require 'setup-magit)
-(require 'setup-rgrep)
-(require 'setup-hippie)
-(require 'setup-ace-jump-mode)
-(require 'setup-perspective)
+;(require 'setup-dired)
+;(require 'setup-magit)
+;(require 'setup-rgrep)
+;(require 'setup-hippie)
+;(require 'setup-ace-jump-mode)
+;(require 'setup-perspective)
 (require 'setup-shell)
 (require 'setup-wrap-region)
-(require 'setup-ffip)
+;(require 'setup-ffip)
 (require 'setup-nxhtml)
 
+
 ;; Map files to modes
-(require 'mode-mappings)
+;(require 'mode-mappings)
 
 ;; Annoying arrows mode
 (require 'annoying-arrows-mode)
