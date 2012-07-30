@@ -43,22 +43,22 @@
 
 
 ;; Setup extensions
-;(require 'setup-ido)
-(require 'setup-yasnippet)
-;(require 'setup-dired)
-;(require 'setup-magit)
-;(require 'setup-rgrep)
-;(require 'setup-hippie)
-;(require 'setup-ace-jump-mode)
-;(require 'setup-perspective)
+(require 'setup-ido)             ; interactivily do things
+(require 'setup-yasnippet)       ; snippets
+;(require 'setup-dired)          ; do things with directory
+;(require 'setup-magit)          ; git mode
+(require 'setup-rgrep)
+;(require 'setup-hippie)         ; Hippie expand
+(require 'setup-ace-jump-mode)  ; faster search
+;(require 'setup-perspective)   ; tagged workspaces (like en KDE / GNome etc.)
 (require 'setup-shell)
 (require 'setup-wrap-region)
-;(require 'setup-ffip)
-(require 'setup-nxhtml)
+(require 'setup-ffip)            ; find file in project
+(require 'setup-nxhtml)           ; nxhtml (multimode html)
 
 
 ;; Map files to modes
-;(require 'mode-mappings)
+(require 'mode-mappings)
 
 ;; Annoying arrows mode
 (require 'annoying-arrows-mode)

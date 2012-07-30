@@ -18,15 +18,15 @@
 (add-to-list 'auto-mode-alist '("\\.jade$" . jade-mode))
 
 ;; HTML
-(add-to-list 'auto-mode-alist '("\\.html\\'" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.jsp$" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.jspf$" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.tag$" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.vm$" . html-mode))
-(add-hook 'sgml-mode-hook
-          (lambda ()
-            (require 'rename-sgml-tag)
-            (define-key sgml-mode-map (kbd "C-c C-r") 'rename-sgml-tag)))
+;(add-to-list 'auto-mode-alist '("\\.html\\'" . html-mode))
+;(add-to-list 'auto-mode-alist '("\\.jsp$" . html-mode))
+;(add-to-list 'auto-mode-alist '("\\.jspf$" . html-mode))
+;(add-to-list 'auto-mode-alist '("\\.tag$" . html-mode))
+;(add-to-list 'auto-mode-alist '("\\.vm$" . html-mode))
+;(add-hook 'sgml-mode-hook
+;          (lambda ()
+;            (require 'rename-sgml-tag)
+;            (define-key sgml-mode-map (kbd "C-c C-r") 'rename-sgml-tag)))
 
 ;; Ruby
 (autoload 'rhtml-mode "rhtml-mode")

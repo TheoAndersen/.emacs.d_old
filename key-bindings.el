@@ -215,6 +215,8 @@
 (global-set-key (kbd "M-s f") 'find-name-dired)
 
 ;; Find file in project
-(global-set-key (kbd "C-x o") 'find-file-in-project)
+(global-set-key (kbd "C-x p") 'find-file-in-project)
+
+(global-set-key (kbd "C-x C-o") 'next-multiframe-window)
 
 (provide 'key-bindings)

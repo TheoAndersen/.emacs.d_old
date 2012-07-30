@@ -9,7 +9,7 @@
  '(js2-function-param-face ((t (:foreground "LightGoldenrod"))))
  '(mumamo-background-chunk-major ((((class color) (min-colors 88) (background dark)) nil)))
  '(mumamo-background-chunk-submode ((((class color) (min-colors 88) (background dark)) nil)))
- '(mumamo-background-chunk-submode1 ((t (:background "#0A041C")))) ; grey8 - 10082E
+ '(mumamo-background-chunk-submode1 ((t (:background "#0A041Crq")))) ; grey8 - 10082E
  '(mumamo-background-chunk-submode2 ((t nil)))
  '(mumamo-background-chunk-submode3 ((t nil)))
  '(mumamo-background-chunk-submode4 ((t nil)))

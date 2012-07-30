@@ -5,7 +5,7 @@
 
 ;; mac friendly font
 ;(set-face-attribute 'default nil :font "Monaco" :height 140)
-(set-face-attribute 'default nil :height 130)
+(set-face-attribute 'default nil :height 125)
 
 ;; make sure path is correct when launched as application
 (setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
