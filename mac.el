@@ -3,6 +3,9 @@
 (setq mac-command-modifier 'meta)
 (setq ns-function-modifier 'hyper)
 
+;; right option is'nt emacs.. so that we can make {  and }
+(setq mac-right-option-modifier nil)
+
 ;; mac friendly font
 ;(set-face-attribute 'default nil :font "Monaco" :height 140)
 (set-face-attribute 'default nil :height 125)
