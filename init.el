@@ -41,6 +41,14 @@
 ;; Are we on a mac?
 (setq is-mac (equal system-type 'darwin))
 
+(setenv "PATH" (concat "/usr/texbin:" (getenv "PATH")))
+
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp")
+(require 'tex-site)
+
+
+(setq ispell-program-name "aspell")
+(setq ispell-list-command "list")
 
 ;; Setup extensions
 (require 'setup-ido)             ; interactivily do things
