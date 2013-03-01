@@ -109,7 +109,7 @@
 ;(require 'setup-yasnippet)       ; snippets
 (require 'setup-dired)          ; do things with directory
 (require 'setup-magit)          ; git mode
-(require 'setup-rgrep)
+;(require 'setup-rgrep)
 ;(require 'setup-hippie)         ; Hippie expand
 ;(require 'setup-ace-jump-mode)  ; faster search
 (require 'setup-perspective)   ; tagged workspaces (like en KDE / GNome etc.)
@@ -122,7 +122,7 @@
 (eval-after-load 'org '(require 'setup-org))
 (eval-after-load 'dired '(require 'setup-dired))
 (eval-after-load 'magit '(require 'setup-magit))
-(eval-after-load 'grep '(require 'setup-rgrep))
+;(eval-after-load 'grep '(require 'setup-rgrep))
 (eval-after-load 'shell '(require 'setup-shell))
 (require 'setup-html-mode)
 (require 'setup-paredit)
@@ -184,7 +184,7 @@
 
 ;; Diminish modeline clutter
 (require 'diminish)
-(diminish 'yas/minor-mode)
+;(diminish 'yas/minor-mode)
 (diminish 'eldoc-mode)
 (diminish 'autopair-mode)
 (diminish 'paredit-mode)
