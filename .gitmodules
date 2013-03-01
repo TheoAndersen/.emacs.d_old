@@ -112,3 +112,6 @@
 [submodule "site-lisp/revealjs-mode"]
 	path = site-lisp/revealjs-mode
 	url = https://github.com/cjohansen/revealjs-mode.git
+[submodule "site-lisp/clj-refactor"]
+	path = site-lisp/clj-refactor
+	url = https://github.com/magnars/clj-refactor.el.git

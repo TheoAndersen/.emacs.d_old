@@ -62,6 +62,7 @@
    (cons 'magit melpa)
    (cons 'paredit melpa)
    (cons 'move-text melpa)
+   (cons 'autopair melpa)
    (cons 'gist melpa)
    (cons 'htmlize melpa)
    (cons 'elisp-slime-nav melpa)
@@ -71,7 +72,6 @@
    (cons 'gitconfig-mode melpa)
    (cons 'gitignore-mode melpa)
    (cons 'clojure-mode melpa)
-   (cons 'clojure-test-mode melpa)
    (cons 'nrepl melpa)))
 
 (condition-case nil
@@ -87,6 +87,11 @@
 
 ;; Are we on a mac?
 (setq is-mac (equal system-type 'darwin))
+;; Autopair when outside of paredit
+(require 'autopair)
+(autopair-global-mode)
+(setq autopair-blink nil) ;; no no NO BLINKING!
+
 ;; Setup environment variables from the user's shell.
 (when is-mac (exec-path-from-shell-initialize))
 
@@ -177,9 +182,16 @@
 (require 'my-misc)
 (when is-mac (require 'mac))
 
+;; Diminish modeline clutter
+(require 'diminish)
+(diminish 'yas/minor-mode)
+(diminish 'eldoc-mode)
+(diminish 'autopair-mode)
+(diminish 'paredit-mode)
+
 ;; Elisp go-to-definition with M-. and back again with M-,
 (autoload 'elisp-slime-nav-mode "elisp-slime-nav")
-(add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t)))
+(add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t) (eldoc-mode 1)))
 (eval-after-load 'elisp-slime-nav '(diminish 'elisp-slime-nav-mode))
 
 ;; Email, baby
