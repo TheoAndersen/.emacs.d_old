@@ -100,17 +100,16 @@
 (setq ispell-list-command "list")
 
 ;; Setup extensions
-<<<<<<< HEAD
 (require 'setup-ido)             ; interactivily do things
-(require 'setup-yasnippet)       ; snippets
+;(require 'setup-yasnippet)       ; snippets
 (require 'setup-dired)          ; do things with directory
 (require 'setup-magit)          ; git mode
 (require 'setup-rgrep)
 ;(require 'setup-hippie)         ; Hippie expand
-(require 'setup-ace-jump-mode)  ; faster search
+;(require 'setup-ace-jump-mode)  ; faster search
 (require 'setup-perspective)   ; tagged workspaces (like en KDE / GNome etc.)
 (require 'setup-shell)
-(require 'setup-wrap-region)
+;(require 'setup-wrap-region)
 (require 'setup-ffip)            ; find file in project
 (require 'setup-nxhtml)           ; nxhtml (multimode html)
 
@@ -120,10 +119,6 @@
 (eval-after-load 'magit '(require 'setup-magit))
 (eval-after-load 'grep '(require 'setup-rgrep))
 (eval-after-load 'shell '(require 'setup-shell))
-(require 'setup-hippie)
-(require 'setup-yasnippet)
-(require 'setup-perspective)
-(require 'setup-ffip)
 (require 'setup-html-mode)
 (require 'setup-paredit)
 
@@ -201,7 +196,7 @@
 
 ;; Diminish modeline clutter
 (require 'diminish)
-(diminish 'yas/minor-mode)
+;(diminish 'yas/minor-mode)
 
 ;; Conclude init by setting up specifics for the current user
 (when (file-exists-p user-settings-dir)

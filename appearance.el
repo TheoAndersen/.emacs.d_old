@@ -20,7 +20,7 @@
 
 
 ;; Highlight in yasnippet
-(set-face-background 'yas/field-highlight-face "#333399")
+;(set-face-background 'yas/field-highlight-face "#333399")
 
 ;; Preeeetty font in Emacs 24/Ubuntu
 (if is-mac nil

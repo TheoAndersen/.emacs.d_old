@@ -1,1 +1,1 @@
-include "../../../../Downloads/Emacs.app/Contents/Resources/etc/schema/xhtml.rnc"
+include "../../../../../../usr/local/Cellar/emacs/24.2/share/emacs/24.2/etc/schema/xhtml.rnc"
