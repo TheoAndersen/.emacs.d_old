@@ -3,6 +3,12 @@
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("jsTestDriver\\.conf$" . yaml-mode))
 
+;; Emacs lisp
+(add-to-list 'auto-mode-alist '("Carton$" . emacs-lisp-mode))
+
+;; CSS
+(add-to-list 'auto-mode-alist '("\\.scss$" . css-mode))
+
 ;; Cucumber
 (autoload 'feature-mode "feature-mode")
 (add-to-list 'auto-mode-alist '("\\.feature$" . feature-mode))
@@ -28,6 +34,20 @@
 ;            (require 'rename-sgml-tag)
 ;            (define-key sgml-mode-map (kbd "C-c C-r") 'rename-sgml-tag)))
 
+;; RevealJS slide sets
+(add-hook 'sgml-mode-hook
+          (lambda ()
+            (save-excursion
+              (if (search-forward "class=\"reveal\"" nil t)
+                  (progn
+                    (require 'revealjs-mode)
+                    (revealjs-mode))))))
+
+;; JSP
+(autoload 'crappy-jsp-mode "crappy-jsp-mode")
+(add-to-list 'auto-mode-alist '("\\.jsp$" . crappy-jsp-mode))
+(add-to-list 'auto-mode-alist '("\\.jspf$" . crappy-jsp-mode))
+
 ;; Ruby
 (autoload 'rhtml-mode "rhtml-mode")
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
@@ -36,6 +56,7 @@
 (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Gemfile" . ruby-mode))
+(add-to-list 'auto-mode-alist '("capfile" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . rhtml-mode))
 
 ;; Puppet
@@ -49,7 +70,6 @@
 ;; Clojure
 (autoload 'clojure-mode "clojure-mode")
 (add-to-list 'auto-mode-alist '("\\.clj$" . clojure-mode))
-(add-hook 'clojure-mode-hook (lambda () (require 'setup-clojure-mode)))
 
 ;; SVG
 (add-to-list 'auto-mode-alist '("\\.svg$" . image-mode))
@@ -59,10 +79,13 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . javascript-mode))
 (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
-(add-hook 'js2-mode-hook (lambda () (require 'setup-js2-mode)))
+
+;; Configuration files
+(add-to-list 'auto-mode-alist '("\\.offlineimaprc$" . conf-mode))
 
 ;; Snippets
 (add-to-list 'auto-mode-alist '("yasnippet/snippets" . snippet-mode))
+(add-to-list 'auto-mode-alist '("\\.yasnippet$" . snippet-mode))
 
 ;; Buster.JS
 ;(autoload 'buster-mode "buster-mode")
@@ -72,10 +95,11 @@
 ;; Markdown
 (autoload 'markdown-mode "markdown-mode")
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
+(add-hook 'markdown-mode-hook (lambda () (define-key markdown-mode-map (kbd "<tab>") 'yas/expand)))
 
-;; PHP
-(autoload 'php-mode "php-mode")
-(add-to-list 'auto-mode-alist '("\\.php$" . php-mode))
+;; Highlighting in editmsg-buffer for magit
+(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . conf-javaprop-mode))
 
 ;; org-mode
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))

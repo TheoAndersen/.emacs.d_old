@@ -1,7 +1,7 @@
 (setq-default js2-allow-rhino-new-expr-initializer nil)
 (setq-default js2-auto-indent-p nil)
 (setq-default js2-enter-indents-newline nil)
-(setq-default js2-global-externs '("module" "require" "jQuery" "$" "_" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname"))
+(setq-default js2-global-externs '("module" "require" "jQuery" "$" "_" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON"))
 (setq-default js2-idle-timer-delay 0.1)
 (setq-default js2-indent-on-enter-key nil)
 (setq-default js2-mirror-mode nil)
@@ -27,6 +27,9 @@
 
 (define-key js2-mode-map (kbd "C-c RET ta") 'toggle-assert-refute)
 
+(defadvice js2r-inline-var (after reindent-buffer activate)
+  (cleanup-buffer))
+
 (defun js2-hide-test-functions ()
   (interactive)
   (save-excursion
@@ -47,6 +50,13 @@
           (back-to-indentation)))))
 
 (define-key js2-mode-map (kbd "TAB") 'js2-tab-properly)
+
+;; Don't redefine C-a for me please, js2-mode
+(define-key js2-mode-map (kbd "C-a") nil)
+
+;; When renaming/deleting js-files, check for corresponding testfile
+(define-key js2-mode-map (kbd "C-x C-r") 'js2r-rename-current-buffer-file)
+(define-key js2-mode-map (kbd "C-x C-k") 'js2r-delete-current-buffer-file)
 
 ;; Use lambda for anonymous functions
 (font-lock-add-keywords
@@ -78,5 +88,52 @@
                        (if (string-match "/\\* *global *\\(.*?\\) *\\*/" btext) (match-string-no-properties 1 btext) "")
                        " *, *" t))
                 ))))
+
+(defun cjsp--eldoc-innards (beg)
+  (save-excursion
+    (goto-char beg)
+    (search-forward "=")
+    (let ((start (point)))
+      (search-forward "*/")
+      (forward-char -2)
+      (buffer-substring-no-properties start (point)))))
+
+(defun cjsp--indentation-of-html-line (html line-number)
+  (with-temp-buffer
+    (insert html)
+    (html-mode)
+    (indent-region (point-min) (point-max))
+    (goto-line line-number)
+    (back-to-indentation)
+    (current-column)))
+
+(defun cjsp--line-number-in-eldoc (p beg)
+  (save-excursion
+    (goto-char p)
+    (let ((l (line-number-at-pos)))
+      (goto-char beg)
+      (- l (line-number-at-pos) -1))))
+
+(defun js2-lineup-comment (parse-status)
+  "Indent a multi-line block comment continuation line."
+  (let* ((beg (nth 8 parse-status))
+         (first-line (js2-same-line beg))
+         (p (point))
+         (offset (save-excursion
+                   (goto-char beg)
+                   (cond
+
+                    ((looking-at "/\\*:DOC ")
+                     (+ 2 (current-column)
+                        (cjsp--indentation-of-html-line
+                         (cjsp--eldoc-innards beg)
+                         (cjsp--line-number-in-eldoc p beg))))
+
+                    ((looking-at "/\\*")
+                     (+ 1 (current-column)))
+
+                    (:else 0)))))
+    (unless first-line
+      (indent-line-to offset))))
 
 (provide 'setup-js2-mode)

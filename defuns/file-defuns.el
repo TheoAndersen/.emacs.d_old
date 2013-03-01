@@ -8,14 +8,14 @@
     (if (not (and filename (file-exists-p filename)))
         (error "Buffer '%s' is not visiting a file!" name)
       (let ((new-name (read-file-name "New name: " filename)))
-        (cond ((get-buffer new-name)
-               (error "A buffer named '%s' already exists!" new-name))
-              (t
-               (rename-file filename new-name 1)
-               (rename-buffer new-name)
-               (set-visited-file-name new-name)
-               (set-buffer-modified-p nil)
-               (message "File '%s' successfully renamed to '%s'" name (file-name-nondirectory new-name))))))))
+        (if (get-buffer new-name)
+            (error "A buffer named '%s' already exists!" new-name)
+          (rename-file filename new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil)
+          (message "File '%s' successfully renamed to '%s'"
+                   name (file-name-nondirectory new-name)))))))
 
 (defun delete-current-buffer-file ()
   "Removes file connected to current buffer and kills buffer."
@@ -29,6 +29,14 @@
         (delete-file filename)
         (kill-buffer buffer)
         (message "File '%s' successfully removed" filename)))))
+
+(defun copy-current-file-path ()
+  "Add current file path to kill ring. Limits the filename to project root if possible."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (kill-new (if eproject-mode
+                  (s-chop-prefix (eproject-root) filename)
+                filename))))
 
 (defun find-or-create-file-at-point ()
   "Guesses what parts of the buffer under point is a file name and opens it."

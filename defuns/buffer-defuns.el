@@ -2,6 +2,23 @@
 
 (require 'imenu)
 
+(defvar buffer-local-mode nil)
+(make-variable-buffer-local 'buffer-local-mode)
+
+(defun mode-keymap (mode-sym)
+  (symbol-value (intern (concat (symbol-name mode-sym) "-map"))))
+
+(defun* buffer-local-set-key (key action)
+  (when buffer-local-mode
+    (define-key (mode-keymap buffer-local-mode)
+      key action)
+    (return-from set-key-buffer-local))
+  (let* ((mode-name-loc (gensym "-blm")))
+    (eval `(define-minor-mode ,mode-name-loc nil nil nil (make-sparse-keymap)))
+    (setq buffer-local-mode mode-name-loc)
+    (funcall mode-name-loc 1)
+    (define-key (mode-keymap mode-name-loc) key action)))
+
 (defun create-scratch-buffer nil
   "create a new scratch buffer to work in. (could be *scratch* - *scratchX*)"
   (interactive)
@@ -165,9 +182,17 @@ Including indent-buffer, which should not be called automatically on save."
   (cleanup-buffer-safe)
   (indent-buffer))
 
+(defun file-name-with-one-directory (file-name)
+  (concat (cadr (reverse (split-string file-name "/"))) "/"
+          (file-name-nondirectory file-name)))
+
+(defun recentf--file-cons (file-name)
+  (cons (file-name-with-one-directory file-name) file-name))
+
 (defun recentf-ido-find-file ()
   "Find a recent file using ido."
   (interactive)
-  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
-    (when file
-      (find-file file))))
+  (let* ((recent-files (mapcar 'recentf--file-cons recentf-list))
+         (files (mapcar 'car recent-files))
+         (file (completing-read "Choose recent file: " files)))
+    (find-file (cdr (assoc file recent-files)))))

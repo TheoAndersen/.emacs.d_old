@@ -17,12 +17,57 @@
 (create-simple-keybinding-command f11 "<f11>")
 (create-simple-keybinding-command f12 "<f12>")
 
+(defun goto-line-with-feedback ()
+  "Show line numbers temporarily, while prompting for the line number input"
+  (interactive)
+  (unwind-protect
+      (progn
+        (linum-mode 1)
+        (call-interactively 'goto-line))
+    (linum-mode -1)))
+
+;; Add spaces and proper formatting to linum-mode. It uses more room than
+;; necessary, but that's not a problem since it's only in use when going to
+;; lines.
+(setq linum-format (lambda (line)
+  (propertize
+   (format (concat " %"
+                   (number-to-string
+                    (length (number-to-string
+                             (line-number-at-pos (point-max)))))
+                   "d ")
+           line)
+   'face 'linum)))
+
 (defun isearch-yank-selection ()
   "Put selection from buffer into search string."
   (interactive)
   (when (region-active-p)
     (deactivate-mark))
   (isearch-yank-internal (lambda () (mark))))
+
+(defun region-as-string ()
+  (buffer-substring (region-beginning)
+                    (region-end)))
+
+(defun isearch-forward-use-region ()
+  (interactive)
+  (when (region-active-p)
+    (add-to-history 'search-ring (region-as-string))
+    (deactivate-mark))
+  (call-interactively 'isearch-forward))
+
+(defun isearch-backward-use-region ()
+  (interactive)
+  (when (region-active-p)
+    (add-to-history 'search-ring (region-as-string))
+    (deactivate-mark))
+  (call-interactively 'isearch-backward))
+
+(eval-after-load "multiple-cursors"
+  '(progn
+     (unsupported-cmd isearch-forward-use-region ".")
+     (unsupported-cmd isearch-backward-use-region ".")))
 
 (defun view-url ()
   "Open a new buffer containing the contents of URL."
@@ -43,10 +88,9 @@
     (yank)
     (insert (concat "\">" text "</a>"))))
 
-(defun recompile-init ()
-  "Byte-compile all your dotfiles again."
-  (interactive)
-  (byte-recompile-directory dotfiles-dir 0))
+(defun buffer-to-html (buffer)
+  (with-current-buffer (htmlize-buffer buffer)
+    (buffer-string)))
 
 (defun sudo-edit (&optional arg)
   (interactive "p")
@@ -77,3 +121,10 @@ Both PATTERN and CONTENTS are matched as regular expressions."
   (interactive)
   (kmacro-push-ring)
   (edit-kbd-macro 'view-lossage))
+
+;; Convert a region of ANSI colorized output to faces
+(defun colorize-ansi-region (start end)
+  (interactive "r")
+  (ansi-color-apply-on-region start end))
+
+(autoload 'colorize-ansi-region "ansi-color")

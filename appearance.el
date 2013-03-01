@@ -11,17 +11,21 @@
 ;; Customize background color of lighlighted line
 (set-face-background 'hl-line "#222222")
 
+
 ;; Subtler highlight in magit
 ;(set-face-background 'magit-item-highlight "#121212")
 ;(set-face-foreground 'magit-diff-none "#666666")
 ;(set-face-foreground 'magit-diff-add "#00cc33")
+
+
 
 ;; Highlight in yasnippet
 (set-face-background 'yas/field-highlight-face "#333399")
 
 ;; Preeeetty font in Emacs 24/Ubuntu
 (if is-mac nil
-  (set-face-attribute 'default nil :font "DejaVu Sans Mono"))
+  (set-default-font "DejaVu Sans Mono")
+  (set-face-attribute 'default nil :height 105))
 
 ;; org-mode colors
 (setq org-todo-keyword-faces
@@ -51,5 +55,9 @@
 
 ;; Make zooming affect frame instead of buffers
 (require 'zoom-frm)
+
+;; Sweet window-splits
+(defadvice split-window-right (after balance activate) (balance-windows))
+(defadvice delete-window (after balance activate) (balance-windows))
 
 (provide 'appearance)

@@ -11,9 +11,6 @@
 ;; Show keystrokes in progress
 (setq echo-keystrokes 0.1)
 
-;; No splash screen please ... jeez
-(setq inhibit-startup-message t)
-
 ;; Move files to trash when deleting
 (setq delete-by-moving-to-trash t)
 
@@ -30,11 +27,11 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; UTF-8 please
-(setq locale-coding-system 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(set-selection-coding-system 'utf-8)
-(prefer-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8) ; pretty
+(set-terminal-coding-system 'utf-8) ; pretty
+(set-keyboard-coding-system 'utf-8) ; pretty
+(set-selection-coding-system 'utf-8) ; please
+(prefer-coding-system 'utf-8) ; with sugar on top
 
 ;; Show active region
 (transient-mark-mode 1)
@@ -52,14 +49,21 @@
 ;; Lines should be 80 characters wide, not 72
 (setq fill-column 80)
 
-;; Save a list of recent files visited.
+;; Save a list of recent files visited. (open recent file with C-x f)
 (recentf-mode 1)
+(setq recentf-max-saved-items 100) ;; just 20 is too recent
+
+;; Undo/redo window configuration with C-c <left>/<right>
+(winner-mode 1)
 
 ;; Never insert tabs
 (set-default 'indent-tabs-mode nil)
 
 ;; Show me empty lines after buffer end
 (set-default 'indicate-empty-lines t)
+
+;; Easily navigate sillycased words
+(global-subword-mode 1)
 
 ;; Don't break lines for me, please
 (setq-default truncate-lines t)
@@ -90,8 +94,19 @@
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 
-;; Add marmalade to package repos
-(eval-after-load "package"
-  '(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/")))
+;; Nic says eval-expression-print-level needs to be set to nil (turned off) so
+;; that you can always see what's happening.
+(setq eval-expression-print-level nil)
+
+;; When popping the mark, continue popping until the cursor actually moves
+;; Also, if the last command was a copy - skip past all the expand-region cruft.
+(defadvice pop-to-mark-command (around ensure-new-position activate)
+  (let ((p (point)))
+    (when (eq last-command 'save-region-or-current-line)
+      ad-do-it
+      ad-do-it
+      ad-do-it)
+    (dotimes (i 10)
+      (when (= p (point)) ad-do-it))))
 
 (provide 'sane-defaults)
