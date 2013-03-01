@@ -1,3 +1,5 @@
+(setq inhibit-startup-message t)
+
 ;; Turn off mouse interface early in startup to avoid momentary display
 (dolist (mode '(menu-bar-mode tool-bar-mode scroll-bar-mode))
   (when (fboundp mode) (funcall mode -1)))
@@ -30,13 +32,22 @@
 (setq backup-directory-alist `(("." . ,(expand-file-name
                                         (concat dotfiles-dir "backups")))))
 
+
+(message "(emacs) Init File 1")
+
 ;; Save point position between sessions
 (require 'saveplace)
 (setq-default save-place t)
 (setq save-place-file (expand-file-name ".places" dotfiles-dir))
 
+(message "(emacs) Init File 2")
+
 ;; Lets start with a smattering of sanity
 (require 'sane-defaults)
+
+(message "(emacs) Init File 3")
+
+
 
 ;; Are we on a mac?
 (setq is-mac (equal system-type 'darwin))
@@ -53,12 +64,12 @@
 ;; Setup extensions
 (require 'setup-ido)             ; interactivily do things
 (require 'setup-yasnippet)       ; snippets
-;(require 'setup-dired)          ; do things with directory
-;(require 'setup-magit)          ; git mode
+(require 'setup-dired)          ; do things with directory
+(require 'setup-magit)          ; git mode
 (require 'setup-rgrep)
 ;(require 'setup-hippie)         ; Hippie expand
 (require 'setup-ace-jump-mode)  ; faster search
-;(require 'setup-perspective)   ; tagged workspaces (like en KDE / GNome etc.)
+(require 'setup-perspective)   ; tagged workspaces (like en KDE / GNome etc.)
 (require 'setup-shell)
 (require 'setup-wrap-region)
 (require 'setup-ffip)            ; find file in project
@@ -69,8 +80,8 @@
 (require 'mode-mappings)
 
 ;; Annoying arrows mode
-(require 'annoying-arrows-mode)
-(global-annoying-arrows-mode)
+;(require 'annoying-arrows-mode)
+;(global-annoying-arrows-mode)
 
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" dotfiles-dir))
