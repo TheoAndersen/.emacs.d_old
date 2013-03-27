@@ -62,10 +62,12 @@
         orgtbl-self-insert-command
         paredit-backslash
         paredit-backward
+        paredit-backward-up
         paredit-close-square
         paredit-doublequote
         paredit-forward
         paredit-forward-delete
+        paredit-forward-down
         paredit-forward-kill-word
         paredit-forward-slurp-sexp
         paredit-forward-up
@@ -90,6 +92,7 @@
         skeleton-pair-insert-maybe
         slime-space
         sp-self-insert-command
+        tagedit-insert-equal
         tagedit-kill-attribute
         touch-buffer-file
         transpose-sexps

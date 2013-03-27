@@ -73,10 +73,6 @@
 ;(set-face-attribute 'default nil :font "Monaco" :height 140)
 (set-face-attribute 'default nil :height 140)
 
-;; make sure path is correct when launched as application
-(setenv "PATH" (concat "/usr/local/bin:" (getenv "PATH")))
-(push "/usr/local/bin" exec-path)
-
 ;; keybinding to toggle full screen mode
 (global-set-key (quote [M-f10]) (quote ns-toggle-fullscreen))
 

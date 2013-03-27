@@ -14,6 +14,7 @@
 
 (require 'js2-mode)
 (require 'js2-refactor)
+(js2r-add-keybindings-with-prefix "C-c C-m")
 
 (require 'js2-imenu-extras)
 (js2-imenu-extras-setup)
@@ -25,10 +26,14 @@
 (define-key js2-mode-map (kbd "C-c RET jo") 'jump-between-source-and-test-files)
 (define-key js2-mode-map (kbd "C-c RET oo") 'jump-between-source-and-test-files-other-window)
 
+(define-key js2-mode-map (kbd "C-c RET dp") 'js2r-duplicate-object-property-node)
+
 (define-key js2-mode-map (kbd "C-c RET ta") 'toggle-assert-refute)
 
 (defadvice js2r-inline-var (after reindent-buffer activate)
   (cleanup-buffer))
+
+(add-hook 'js2-mode-hook (lambda () (smartparens-mode 1)))
 
 (defun js2-hide-test-functions ()
   (interactive)

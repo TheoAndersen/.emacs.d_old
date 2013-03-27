@@ -200,7 +200,8 @@
 (defun custom-persp/adventur-master ()
   (interactive)
   (custom-persp "adventur-master"
-                (find-file "~/projects/eventyr/master/notat.adv")))
+                (require 'adventur-mode)
+                (find-file "~/projects/eventyr/master/notat.org")))
 
 (define-key persp-mode-map (kbd "C-x p m") 'custom-persp/adventur-master)
 

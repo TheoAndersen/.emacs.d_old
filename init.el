@@ -62,9 +62,9 @@
    (cons 'magit melpa)
    (cons 'paredit melpa)
    (cons 'move-text melpa)
-   (cons 'autopair melpa)
    (cons 'gist melpa)
    (cons 'htmlize melpa)
+   (cons 'smartparens melpa)
    (cons 'elisp-slime-nav melpa)
    ;(cons 'elnode marmalade)
    (cons 'slime-js marmalade)
@@ -127,6 +127,9 @@
 (require 'setup-html-mode)
 (require 'setup-paredit)
 
+;; Default setup of smartparens
+(require 'smartparens-config)
+
 ;; Language specific setup files
 (eval-after-load 'js2-mode '(require 'setup-js2-mode))
 (eval-after-load 'ruby-mode '(require 'setup-ruby-mode))
@@ -186,7 +189,6 @@
 (require 'diminish)
 ;(diminish 'yas/minor-mode)
 (diminish 'eldoc-mode)
-(diminish 'autopair-mode)
 (diminish 'paredit-mode)
 
 ;; Elisp go-to-definition with M-. and back again with M-,
