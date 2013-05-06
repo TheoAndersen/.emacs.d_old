@@ -5,6 +5,9 @@
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
+;; right option is'nt emacs.. so that we can make {  and }
+(setq mac-right-option-modifier nil)
+
 ;; Set up load path
 (add-to-list 'load-path user-emacs-directory)
 
@@ -17,16 +20,32 @@
 (require 'js2-refactor)
 (js2r-add-keybindings-with-prefix "C-c C-m")
 (autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js1-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+(require 'tramp)
+(setq tramp-default-method "ftp")
 
 ;; Keep emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
 ;; Write backup files to own directory
-(setq backup-directory-alist
-      `(("." . ,(expand-file-name
-                 (concat user-emacs-directory "backups")))))
+;(setq backup-directory-alist
+;      `(("." . ,(expand-file-name
+;                 (concat user-emacs-directory "backups")))))
+
+;(setq backup-directory-alist
+;          `((".*" . ,temporary-file-directory)))
+
+;(setq auto-save-file-name-transforms
+;          `((".*" ,temporary-file-directory t)))
+
+;;; backup/autosave
+(defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
+(defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
+(setq backup-directory-alist (list (cons ".*" backup-dir)))
+(setq auto-save-list-file-prefix autosave-dir)
+(setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 
 (setq is-mac (equal system-type 'darwin))
 
@@ -50,6 +69,7 @@
    (cons 'zoom-frm melpa)
    (cons 'frame-cmds melpa)
    (cons 'frame-fns melpa)
+   (cons 'expand-region melpa)
    (cons 'find-file-in-project melpa)))
 
 (condition-case nil
@@ -72,5 +92,5 @@
 (global-set-key (quote [M-f10]) (quote ns-toggle-fullscreen))
 
 (require 'key-bindings)
-
+(require 'expand-region)
 (require 'appearance)
