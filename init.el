@@ -11,6 +11,18 @@
 ;; Set up load path
 (add-to-list 'load-path user-emacs-directory)
 
+;(setenv "PATH" (concat "/opt/local/bin:/opt/local/sbin:" (getenv "PATH")))
+;(setq exec-path (append '("/opt/local/bin" "/opt/local/sbin") exec-path))
+
+(defun read-system-path ()
+  (with-temp-buffer
+    (insert-file-contents "/etc/paths")
+    (goto-char (point-min))
+    (replace-regexp "\n" ":")
+    (thing-at-point 'line)))
+ 
+(setenv "PATH" (read-system-path))
+
 (require 'package)
 (package-initialize)
 (add-to-list 'package-archives
