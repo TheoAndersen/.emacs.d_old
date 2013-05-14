@@ -20,6 +20,14 @@
     (goto-char (point-min))
     (replace-regexp "\n" ":")
     (thing-at-point 'line)))
+
+;; Create function for mac-fullscreen
+(defun toggle-fullscreen ()
+  "Toggle full screen"
+  (interactive)
+  (set-frame-parameter
+     nil 'fullscreen
+     (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
  
 (setenv "PATH" (read-system-path))
 
@@ -101,7 +109,7 @@
 (set-face-attribute 'default nil :height 140)
 
 ;; keybinding to toggle full screen mode
-(global-set-key (quote [M-f10]) (quote ns-toggle-fullscreen))
+(global-set-key (quote [M-f10]) (quote toggle-fullscreen))
 
 (require 'key-bindings)
 (require 'expand-region)
