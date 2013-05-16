@@ -18,8 +18,15 @@
 ;; Use C-x C-m to do M-x per Steve Yegge's advice
 ;(global-set-key (kbd "C-x C-m") 'smex)
 
-;; Expand region (increases selected region by semantic units)
-(global-set-key (if is-mac (kbd "C-'")) 'er/expand-region)
+
+(defun pg-kill-this-line (n)
+   "Kill the line point is on.
+  With prefix arg, kill this many lines starting at the line point is on."
+   (interactive "p")
+   (kill-region (line-beginning-position)
+	        (progn (forward-line n) (point))))
+
+(global-set-key (kbd "<s-backspace>") 'pg-kill-this-line)
 
 ;; Experimental multiple-cursors
 ;(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
