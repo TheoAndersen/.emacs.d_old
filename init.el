@@ -36,6 +36,10 @@
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
+(setq-default js2-idle-timer-delay 0.1)
+(setq-default js2-auto-indent-flag t)
+(setq-default js2-global-externs '("module" "require" "jQuery" "$" "_" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON"))
+(setq-default js2-indent-on-enter-key t)
 (require 'js2-mode)
 (require 'js2-refactor)
 (js2r-add-keybindings-with-prefix "C-c C-m")

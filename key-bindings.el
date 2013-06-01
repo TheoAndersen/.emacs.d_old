@@ -18,6 +18,9 @@
 ;; Use C-x C-m to do M-x per Steve Yegge's advice
 ;(global-set-key (kbd "C-x C-m") 'smex)
 
+(js2r-add-keybindings-with-prefix "C-c C-m")
+;; eg. extract function with `C-c C-m ef`.
+
 
 (defun pg-kill-this-line (n)
    "Kill the line point is on.
@@ -61,7 +64,7 @@
 ;; Replace rectangle-text with inline-string-rectangle
 ;(global-set-key (kbd "C-x r t") 'inline-string-rectangle)
 
-;; Quickly jump in document with ace-jump-mode
+;; Quickly jxump in document with ace-jump-mode
 (define-key global-map (kbd "C-ø") 'ace-jump-mode)
 
 ;; Perform general cleanup.
@@ -161,7 +164,8 @@
 (global-set-key (kbd "C-x C-_") 'toggle-window-split)
 (global-unset-key (kbd "C-x C-+")) ;; don't zoom like this
 
-(global-set-key (kbd "C-x 3") 'split-window-right-and-move-there-dammit)
+(global-set-key (kbd "C-x 3") 'split-window-right)
+;(global-set-key (kbd "C-x 3") 'split-window-right-and-move-there-dammit)
 
 ;; Add region to *multifile*
 ;(global-set-key (kbd "C-!") 'mf/mirror-region-in-multifile)
