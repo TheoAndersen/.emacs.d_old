@@ -18,7 +18,7 @@
 ;; Use C-x C-m to do M-x per Steve Yegge's advice
 ;(global-set-key (kbd "C-x C-m") 'smex)
 
-(js2r-add-keybindings-with-prefix "C-c C-m")
+(js2r-add-keybindings-with-prefix "C-r")
 ;; eg. extract function with `C-c C-m ef`.
 
 
