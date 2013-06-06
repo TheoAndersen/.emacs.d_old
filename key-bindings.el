@@ -19,6 +19,7 @@
 ;(global-set-key (kbd "C-x C-m") 'smex)
 
 (js2r-add-keybindings-with-prefix "C-r")
+(define-key js2-mode-map [(return)] 'js2-line-break)
 ;; eg. extract function with `C-c C-m ef`.
 
 
