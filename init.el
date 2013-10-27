@@ -31,6 +31,8 @@
  
 (setenv "PATH" (read-system-path))
 
+(setenv "PATH" (concat "/usr/texbin:" (getenv "PATH")))
+
 (require 'package)
 (package-initialize)
 (add-to-list 'package-archives
@@ -45,7 +47,7 @@
 (js2r-add-keybindings-with-prefix "C-c C-m")
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
+(require 'erlang-config)
 (require 'tramp)
 (setq tramp-default-method "ftp")
 

@@ -28,11 +28,11 @@
         eval-and-replace
         fold-this
         forward-paragraph
-        isearch-forward-use-region
         forward-sentence
         forward-sexp
         hippie-expand-no-case-fold
         html-wrap-in-tag
+        isearch-forward-use-region
         js2-beginning-of-line
         js2-end-of-line
         js2-insert-and-indent
@@ -104,23 +104,26 @@
 
 (setq mc/cmds-to-run-once
       '(
+        ac-js2-expand-function
         adv-insert-new-number
         dired-toggle-read-only
+        eval-expression
         eval-expression
         goto-line-with-feedback
         handle-switch-frame
         ido-switch-buffer
         js2r-extract-var
         js2r-rename-var
-        eval-expression
-        quit-window
-        sgml-maybe-name-self
-        toggle-read-only
-        view-echo-area-messages
+        kill-region
         magit-status
         mc/add-cursor-on-click
         mc/add-cursors-to-all-matches
+        push-button
+        quit-window
+        sgml-maybe-name-self
         smex
+        toggle-read-only
+        view-echo-area-messages
         wgrep-change-to-wgrep-mode
         wgrep-finish-edit
         wgrep-save-all-buffers
