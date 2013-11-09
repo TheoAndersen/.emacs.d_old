@@ -1,3 +1,8 @@
+;;-----------------|
+;;  Initial Setup  |
+;;_________________|
+
+; no splash screen
 (setq inhibit-startup-message t)
 
 ;; Turn off mouse interface early in startup to avoid momentary display
@@ -18,36 +23,13 @@
     (replace-regexp "\n" ":")
     (thing-at-point 'line)))
 
-;; Create function for mac-fullscreen
-(defun toggle-fullscreen ()
-  "Toggle full screen"
-  (interactive)
-  (set-frame-parameter
-     nil 'fullscreen
-     (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
- 
 (setenv "PATH" (read-system-path))
 (setenv "PATH" (concat "/usr/texbin:" (getenv "PATH")))
 
-(require 'package)
-(package-initialize)
-(add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-
-(setq-default js2-idle-timer-delay 0.1)
-(setq-default js2-auto-indent-flag t)
-(setq-default js2-global-externs '("module" "require" "jQuery" "$" "_" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON"))
-(setq-default js2-indent-on-enter-key t)
-(require 'js2-mode)
-(require 'js2-refactor)
-(js2r-add-keybindings-with-prefix "C-c C-m")
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-(require 'erlang-config)
-(require 'tramp)
-(require 'perspective)
-(setq tramp-default-method "ftp")
+;;---------------------------------------|
+;;  Backup / Autosave and locking files  |
+;;_______________________________________|
 
 ;; Keep emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -63,7 +45,55 @@
 (setq auto-save-list-file-prefix autosave-dir)
 (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 
+
+;;---------------------------|
+;;  Which system are we on?  |
+;;___________________________|
+
+; is mac?
 (setq is-mac (equal system-type 'darwin))
+
+;; Create function for mac-fullscreen
+(defun toggle-fullscreen ()
+  "Toggle full screen"
+  (interactive)
+  (set-frame-parameter
+     nil 'fullscreen
+     (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
+
+;; mac friendly font
+;(set-face-attribute 'default nil :font "Monaco" :height 140)
+(set-face-attribute 'default nil :height 140)
+
+;; keybinding to toggle full screen mode
+(global-set-key (quote [M-f10]) (quote toggle-fullscreen))
+
+
+;;---------------------------------------------
+;; Load / install and setup the right packages
+;;_____________________________________________
+
+(require 'package)
+(package-initialize)
+(add-to-list 'package-archives
+  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+(setq-default js2-idle-timer-delay 0.1)
+(setq-default js2-auto-indent-flag t)
+(setq-default js2-global-externs '("module" "require" "jQuery" "$" "_" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON"))
+(setq-default js2-indent-on-enter-key t)
+(require 'js2-mode)
+(require 'js2-refactor)
+(js2r-add-keybindings-with-prefix "C-c C-m")
+(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+
+(require 'erlang-config)
+(require 'tramp)
+(require 'perspective)
+(setq tramp-default-method "ftp")
+
 (desktop-save-mode 1)
 
 (require 'setup-package)
@@ -101,12 +131,6 @@
 (require 'smex)
 (smex-initialize)
 
-;; mac friendly font
-;(set-face-attribute 'default nil :font "Monaco" :height 140)
-(set-face-attribute 'default nil :height 140)
-
-;; keybinding to toggle full screen mode
-(global-set-key (quote [M-f10]) (quote toggle-fullscreen))
 
 (require 'key-bindings)
 (require 'expand-region)
