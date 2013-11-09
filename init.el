@@ -11,9 +11,6 @@
 ;; Set up load path
 (add-to-list 'load-path user-emacs-directory)
 
-;(setenv "PATH" (concat "/opt/local/bin:/opt/local/sbin:" (getenv "PATH")))
-;(setq exec-path (append '("/opt/local/bin" "/opt/local/sbin") exec-path))
-
 (defun read-system-path ()
   (with-temp-buffer
     (insert-file-contents "/etc/paths")
@@ -30,13 +27,13 @@
      (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
  
 (setenv "PATH" (read-system-path))
-
 (setenv "PATH" (concat "/usr/texbin:" (getenv "PATH")))
 
 (require 'package)
 (package-initialize)
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
 
 (setq-default js2-idle-timer-delay 0.1)
 (setq-default js2-auto-indent-flag t)
@@ -49,22 +46,15 @@
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (require 'erlang-config)
 (require 'tramp)
+(require 'perspective)
 (setq tramp-default-method "ftp")
 
 ;; Keep emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
-;; Write backup files to own directory
-;(setq backup-directory-alist
-;      `(("." . ,(expand-file-name
-;                 (concat user-emacs-directory "backups")))))
-
-;(setq backup-directory-alist
-;          `((".*" . ,temporary-file-directory)))
-
-;(setq auto-save-file-name-transforms
-;          `((".*" ,temporary-file-directory t)))
+; Don't use lock files (.#<file>) because they annoy build systems
+(setq create-lockfiles nil)
 
 ;;; backup/autosave
 (defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
@@ -74,9 +64,7 @@
 (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 
 (setq is-mac (equal system-type 'darwin))
-
 (desktop-save-mode 1)
-
 
 (require 'setup-package)
 
@@ -96,6 +84,9 @@
    (cons 'frame-cmds melpa)
    (cons 'frame-fns melpa)
    (cons 'expand-region melpa)
+   (cons 'perspective melpa)
+   (cons 'ace-jump-mode melpa)
+   (cons 'ace-jump-buffer melpa)
    (cons 'find-file-in-project melpa)))
 
 (condition-case nil

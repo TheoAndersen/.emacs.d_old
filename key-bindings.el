@@ -1,7 +1,7 @@
 ;; I don't need to kill emacs that easily
 ;; the mnemonic is C-x REALLY QUIT
 (global-set-key (kbd "C-x r q") 'save-buffers-kill-terminal)
-(global-set-key (kbd "C-x C-c") 'delete-frame)
+;(global-set-key (kbd "C-x C-c") 'delete-frame)
 
 ;; Completion that uses many different methods to find options.
 ;; (global-set-key (kbd "C-.") 'hippie-expand-no-case-fold)
@@ -298,8 +298,8 @@
 (global-set-key (kbd "C-x M-j") '(lambda () (interactive) (dired-jump 1)))
 
 ;; Easy-mode fullscreen rgrep
-;(global-set-key (kbd "M-s s") 'git-grep-fullscreen)
-;(global-set-key (kbd "M-s S") 'rgrep-fullscreen)
+(global-set-key (kbd "M-s s") 'git-grep-fullscreen)
+(global-set-key (kbd "M-s S") 'rgrep-fullscreen)
 
 ;; Multi-occur
 ;(global-set-key (kbd "M-s m") 'multi-occur)
@@ -312,7 +312,7 @@
 ;(global-set-key (kbd "M-s f") 'find-name-dired)
 
 ;; Find file in project
-;(global-set-key (kbd "C-x p") 'find-file-in-project)
+(global-set-key (kbd "C-x p") 'find-file-in-project)
 
 ;(global-set-key (kbd "C-x C-o") 'next-multiframe-window)
 
