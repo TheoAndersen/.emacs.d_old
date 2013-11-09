@@ -73,51 +73,54 @@
 ;; Load / install and setup the right packages
 ;;_____________________________________________
 
-(require 'package)
-(package-initialize)
-(add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+;(require 'package)
+;(package-initialize)
+;(add-to-list 'package-archives
+;  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-(setq-default js2-idle-timer-delay 0.1)
-(setq-default js2-auto-indent-flag t)
-(setq-default js2-global-externs '("module" "require" "jQuery" "$" "_" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON"))
-(setq-default js2-indent-on-enter-key t)
-(require 'js2-mode)
-(require 'js2-refactor)
-(js2r-add-keybindings-with-prefix "C-c C-m")
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+;;--- Js2 mode settings
+;;-----------------------
+;(setq-default js2-idle-timer-delay 0.1)
+;(setq-default js2-auto-indent-flag t)
+;(setq-default js2-global-externs '("module" "require" "jQuery" "$" "_" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON"))
+;(setq-default js2-indent-on-enter-key t)
+;(require 'js2-mode)
+;(require 'js2-refactor)
+;(js2r-add-keybindings-with-prefix "C-c C-m")
+;(autoload 'js2-mode "js2" nil t)
+;(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 
-(require 'erlang-config)
-(require 'tramp)
-(require 'perspective)
-(setq tramp-default-method "ftp")
+;(require 'erlang-config)
+;(require 'tramp)
+;(require 'perspective)
+;(setq tramp-default-method "ftp")
 
-(desktop-save-mode 1)
+;(desktop-save-mode 1)
 
 (require 'setup-package)
 
 ;; Install extensions if they're missing
 (defun init--install-packages ()
   (packages-install
-   (cons 'magit melpa)
-   (cons 'git-commit-mode melpa)
-   (cons 'gitconfig-mode melpa)
-   (cons 'gitignore-mode melpa)
-   (cons 'smooth-scrolling melpa)
+   (cons 'magit)
+   (cons 'git-commit-mode)
+   (cons 'gitconfig-mode)
+   (cons 'gitignore-mode)
+   (cons 'smooth-scrolling)
    (cons 'undo-tree melpa)
    (cons 'js2-mode melpa)
-   (cons 'js2-refactor melpa)
+   (cons 'js2-refactor)
    (cons 'smex melpa)
-   (cons 'zoom-frm melpa)
-   (cons 'frame-cmds melpa)
-   (cons 'frame-fns melpa)
-   (cons 'expand-region melpa)
-   (cons 'perspective melpa)
-   (cons 'ace-jump-mode melpa)
-   (cons 'ace-jump-buffer melpa)
-   (cons 'find-file-in-project melpa)))
+   (cons 'zoom-frm)
+   (cons 'frame-cmds)
+   (cons 'frame-fns)
+   (cons 'expand-region)
+   (cons 'perspective)
+   (cons 'ace-jump-mode)
+   (cons 'ace-jump-buffer)
+   (cons 'dash)
+   (cons 'find-file-in-project)))
 
 (condition-case nil
     (init--install-packages)
@@ -127,11 +130,15 @@
 
 (require 'sane-defaults)
 
-;; Smart M-x is smart
-(require 'smex)
-(smex-initialize)
-
+;; Setup environment variables from the user's shell.
+(when is-mac
+  (require-package 'exec-path-from-shell)
+  (exec-path-from-shell-initialize))
+  
+;;; Smart M-x is smart
+;(require 'smex)
+;(smex-initialize)
 
 (require 'key-bindings)
-(require 'expand-region)
+;(require 'expand-region)
 (require 'appearance)
